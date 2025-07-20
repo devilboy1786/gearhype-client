@@ -1,24 +1,61 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Home from './pages/Home';
-import About from './pages/About';
-import Products from './pages/Products';
+import { Menu, Home, Info, ShoppingBag } from 'lucide-react';
+import HomePage from './pages/Home';
+import AboutPage from './pages/About';
+import ProductsPage from './pages/Products';
+import { useState } from 'react';
 
 function App() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
   return (
     <Router>
-      <nav className="p-4 bg-gray-200 flex gap-4">
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/products">Products</Link>
-      </nav>
+      <header className="bg-white shadow-md">
+        <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+          <h1 className="text-xl font-bold">GearHype</h1>
+          <button className="md:hidden" onClick={toggleMenu}>
+            <Menu size={24} />
+          </button>
+          <nav className="hidden md:flex space-x-6">
+            <Link to="/" className="flex items-center gap-1 hover:text-blue-500">
+              <Home size={18} /> Home
+            </Link>
+            <Link to="/about" className="flex items-center gap-1 hover:text-blue-500">
+              <Info size={18} /> About
+            </Link>
+            <Link to="/products" className="flex items-center gap-1 hover:text-blue-500">
+              <ShoppingBag size={18} /> Products
+            </Link>
+          </nav>
+        </div>
 
-      <div className="p-6">
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <nav className="md:hidden bg-gray-100 px-4 pb-4 space-y-2">
+            <Link to="/" onClick={toggleMenu} className="block py-2 flex items-center gap-2">
+              <Home size={18} /> Home
+            </Link>
+            <Link to="/about" onClick={toggleMenu} className="block py-2 flex items-center gap-2">
+              <Info size={18} /> About
+            </Link>
+            <Link to="/products" onClick={toggleMenu} className="block py-2 flex items-center gap-2">
+              <ShoppingBag size={18} /> Products
+            </Link>
+          </nav>
+        )}
+      </header>
+
+      <main className="p-6 max-w-6xl mx-auto">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/products" element={<Products />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/products" element={<ProductsPage />} />
         </Routes>
-      </div>
+      </main>
     </Router>
   );
 }
