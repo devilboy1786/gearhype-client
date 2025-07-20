@@ -1,21 +1,24 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-
 import Home from './pages/Home';
 import About from './pages/About';
+import Products from './pages/Products';
 
 function App() {
   return (
     <Router>
-      <nav className="p-4 bg-gray-800 text-white flex space-x-4">
+      <nav className="p-4 bg-gray-200 flex gap-4">
         <Link to="/">Home</Link>
         <Link to="/about">About</Link>
+        <Link to="/products">Products</Link>
       </nav>
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
+      <div className="p-6">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/products" element={<Products />} />
+        </Routes>
+      </div>
     </Router>
   );
 }
