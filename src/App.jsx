@@ -1,10 +1,23 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+
+import Home from './pages/Home';
+import About from './pages/About';
+
 function App() {
   return (
-    <div className="text-center p-4">
-      <h1 className="text-3xl font-bold text-blue-600">Welcome to GearHype!</h1>
-      <p className="mt-4 text-gray-700">Your one-stop gear shopping site.</p>
-    </div>
-  )
+    <Router>
+      <nav className="p-4 bg-gray-800 text-white flex space-x-4">
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
